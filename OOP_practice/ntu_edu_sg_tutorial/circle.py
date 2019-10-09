@@ -17,8 +17,9 @@ class Circle():
         return f"A circle class object with a radius of {round(self.radius, 2)}"
 
     def __repr__(self):
-        return (f"Circle(radius={self.radius}, "
-                f"area={self.get_area()})")
+        """Repr should always represent a valid expression that can be used
+           to re-create the object"""
+        return (f"Circle(radius={self.radius})")
 
     def get_area(self):
         """Returns the area of this Circle instance"""
@@ -32,15 +33,19 @@ if __name__ == "__main__":
     print(small_circle) # invokes __str__()
     print(repr(small_circle)) # invokes __repr__()
     print(small_circle) # invokes __str__()
-    
+
+    print("Instance objects vs class objects")
+    print(small_circle.get_area()) # Python converts instance obj calls to
+    print(Circle.get_area(small_circle)) # class object calls with inst as arg
+
     big_circle = Circle(72.456)
     print(repr(big_circle))
     print(big_circle)
-    
+
     print(__doc__) # This module doc
     print(Circle.__doc__) # Circle class doc
     print(small_circle.__doc__) # same as above
     print(Circle.get_area.__doc__) # Circle class method doc
-    
+
     print(isinstance(big_circle, Circle)) # True
     print(isinstance(small_circle, int)) # False
