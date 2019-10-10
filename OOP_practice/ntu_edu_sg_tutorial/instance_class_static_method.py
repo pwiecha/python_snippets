@@ -6,20 +6,39 @@ Class- and static- methods
 """
 
 class ABC:
-    def inst_method(self, x):
-        print(f"inst_method({self} {x})")
+    cls_var = "A class variable (shared among instances)"
+    
+    def __init__(self, some_text):
+        self.inst_var = some_text
+    
+    def inst_method(selff): #self, cls is just a convention
+        print(f"inst_method({selff} {selff.inst_var} {ABC.cls_var})")
         
-# TODO add class and instance variables, check accessibility in
-        # @classmethod and @staticmethod
+    @classmethod
+    def cls_method(cls):
+        print(cls.cls_var)
+        
+    @staticmethod
+    def st_method():
+        print("Hello from a class!")
+
 
 if __name__ == "__main__":
-    c1 = ABC() 
-    c1.inst_method(5)
-    ABC.inst_method(c1, 5)
+    print("testing inst methods")
+    c1 = ABC("Instance 1 text") 
+    c1.inst_method()
+    ABC.inst_method(c1)
 
+    print("testing class methods")
+    ABC.cls_method()
+    c1.cls_method()
+
+    print("testing static method")
+    ABC.st_method()
+    c1.st_method()
     
     # CAUTION c2=ABC will alias a class not create object
-    c2 = ABC # alias
-    c3 = ABC() # new object
-    
+    c2 = ABC("Instance 2 text") # new object
+    c3 = ABC # alias
+
     print("\n",c2,"\n", c3)
