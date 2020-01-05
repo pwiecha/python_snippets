@@ -1,16 +1,19 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
 """
-Circle class with undecorated get/set methods
-and with property methods
+Example summary.
+
+Circle class with undecorated get/set methods and with property methods.
 @author: pwiecha
 """
-import math as m
+import math
 
-class Circle():
-    """Circle class with undecorated get/set methods"""
+
+class Circle(object):
+    """Circle class with undecorated get/set methods."""
+
     inst_cnt = 0
-    
+
     def __init__(self, _radius=1.0):
         self.set_radius(_radius)
         self.__class__.inst_cnt += 1
@@ -32,15 +35,15 @@ class Circle():
         self._radius = _radius
 
     def get_area(self):
-        return m.pi*self.get_radius()**2
+        return math.pi*self.get_radius()**2
 
 
 if __name__ == "__main__":
+    rad = -5.0
     try:
-        rad = -5.0
         cb1 = Circle(rad)
-    except:
-        print("Caught an error during Circle obj cration")
+    except Exception:
+        print("Caught an error during Circle obj creation")
         cb1 = Circle(-rad)
     print(cb1)
     print(repr(cb1))
