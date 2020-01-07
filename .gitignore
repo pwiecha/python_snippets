@@ -1,2 +1,8 @@
 # Byte-complied
 __pycache__/
+# Type checking
+.mypy_cache/
+*dmypy*
+# IDE
+.idea/
+.vscode/
