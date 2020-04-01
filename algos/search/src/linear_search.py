@@ -1,7 +1,9 @@
 ''' Implementation of the linear search '''
-from mytypes import *
+from typing import Sequence, TypeVar
+TNum = TypeVar('TNum', int, float)
 
-def linear_search(target: TNum , sequence: Sequence[TNum]) -> int:
+
+def linear_search(target: TNum, sequence: Sequence[TNum]) -> int:
     '''
     Linear search algorithm
     For sorted sequence of len n:
