@@ -6,7 +6,7 @@ TNum = TypeVar('TNum', int, float)
 def linear_search(target: TNum, sequence: Sequence[TNum]) -> int:
     '''
     Linear search algorithm
-    For sorted sequence of len n:
+    For sequence of len n:
     Best case O(1)
     Worst case O(n)
     Args:

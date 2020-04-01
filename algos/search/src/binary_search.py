@@ -24,8 +24,7 @@ def binary_search(target: TNum, sequence: Sequence[TNum]) -> int:
             high_bound = mid_item - 1
         elif target > sequence[mid_item]:
             low_bound = mid_item + 1
-        else:
-            return mid_item
+        return mid_item
     return -1  # Not found
 
 

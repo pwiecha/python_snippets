@@ -1,0 +1,1 @@
+run pytest from tests/ for pytest.ini to be discovered, otherwise move it up one dir
