@@ -16,15 +16,16 @@ def binary_search(target: TNum, sequence: Sequence[TNum]) -> int:
         Index of first element that matches the target
         -1 if the element is missing in the sequence
     '''
-    low_bound = 0
-    high_bound = len(sequence)-1
-    while low_bound <= high_bound:
-        mid_item = (high_bound + low_bound) // 2
-        if target < sequence[mid_item]:
-            high_bound = mid_item - 1
-        elif target > sequence[mid_item]:
-            low_bound = mid_item + 1
-        return mid_item
+    low_idx = 0
+    high_idx = len(sequence)-1
+    while low_idx <= high_idx:
+        mid_idx = (high_idx + low_idx) // 2
+        if target == sequence[mid_idx]:
+            return mid_idx
+        elif target > sequence[mid_idx]:
+            low_idx = mid_idx + 1
+        else:
+            high_idx = mid_idx - 1
     return -1  # Not found
 
 
@@ -41,13 +42,14 @@ def binary_search_recursive(target: TNum, sequence: Sequence[TNum]) -> int:
         Index of first element that matches the target
         -1 if the element is missing in the sequence
     '''
-    low_bound = 0
-    high_bound = len(sequence)-1
-    if low_bound <= high_bound:
-        mid_item = (high_bound + low_bound) // 2
-        if target < sequence[mid_item]:
-            return binary_search_recursive(target, sequence[:mid_item])
-        elif target > sequence[mid_item]:
-            return binary_search_recursive(target, sequence[mid_item+1:])
-        return mid_item
+    low_idx = 0
+    high_idx = len(sequence)-1
+    if low_idx <= high_idx:
+        mid_idx = (high_idx + low_idx) // 2
+        if target < sequence[mid_idx]:
+            return binary_search_recursive(target, sequence[:mid_idx])
+        elif target > sequence[mid_idx]:
+            recursive_call_result = binary_search_recursive(target, sequence[mid_idx+1:])
+            return mid_idx + recursive_call_result + 1 if recursive_call_result else -1
+        return mid_idx
     return -1  # Not found

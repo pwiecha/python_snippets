@@ -1,3 +1,9 @@
+Code check:
 flake8
 pylint
 mypy
+
+Testing:
+pytest
+pytest-xdist (parallelization)
+pytest-repeat (added --count=N to repeat captured all tests or use @pytest.mark.repeat(N) to always repeat a specific test)
