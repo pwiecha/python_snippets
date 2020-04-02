@@ -42,14 +42,15 @@ def binary_search_recursive(target: TNum, sequence: Sequence[TNum]) -> int:
         Index of first element that matches the target
         -1 if the element is missing in the sequence
     '''
-    low_idx = 0
-    high_idx = len(sequence)-1
-    if low_idx <= high_idx:
-        mid_idx = (high_idx + low_idx) // 2
-        if target < sequence[mid_idx]:
-            return binary_search_recursive(target, sequence[:mid_idx])
+    mid_idx = len(sequence) // 2
+    # Base case
+    if len(sequence) == 1:
+        return mid_idx if target == sequence[mid_idx] else -1
+    else:
+        if target == sequence[mid_idx]:
+            return mid_idx
         elif target > sequence[mid_idx]:
-            recursive_call_result = binary_search_recursive(target, sequence[mid_idx+1:])
-            return mid_idx + recursive_call_result + 1 if recursive_call_result else -1
-        return mid_idx
-    return -1  # Not found
+            recursive_call_result = binary_search_recursive(target, sequence[mid_idx:])
+            return mid_idx + recursive_call_result if recursive_call_result != -1 else recursive_call_result
+        else:
+            return binary_search_recursive(target, sequence[:mid_idx])

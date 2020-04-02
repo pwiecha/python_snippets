@@ -53,7 +53,9 @@ def test_ls_long(sorted_long_data):
 @pytest.mark.linear
 @pytest.mark.repeat(repeat_not_found)
 def test_ls_not_found(sorted_med_data):
-    val = sorted_med_data[-1] + random.randrange(1, 50)
+    val_above = sorted_med_data[-1] + random.randrange(1, 50)
+    val_below = sorted_med_data[0] - random.randrange(1, 50)
+    val = random.choice([val_above, val_below])
     assert linear_search(val, sorted_med_data) == -1
 
 @pytest.mark.linear
@@ -92,7 +94,9 @@ def test_bs_long(sorted_long_data):
 @pytest.mark.binary
 @pytest.mark.repeat(repeat_not_found)
 def test_bs_not_found(sorted_med_data):
-    val = sorted_med_data[-1] + random.randrange(1, 50)
+    val_above = sorted_med_data[-1] + random.randrange(1, 50)
+    val_below = sorted_med_data[0] - random.randrange(1, 50)
+    val = random.choice([val_above, val_below])
     assert binary_search(val, sorted_med_data) == -1
 
 @pytest.mark.linear
@@ -128,10 +132,13 @@ def test_bsr_long(sorted_long_data):
 @pytest.mark.binary
 @pytest.mark.repeat(repeat_not_found)
 def test_bsr_not_found(sorted_med_data):
-    val = sorted_med_data[-1] + random.randrange(1, 50)
+    val_above = sorted_med_data[-1] + random.randrange(1, 50)
+    val_below = sorted_med_data[0] - random.randrange(1, 50)
+    val = random.choice([val_above, val_below])
+
     print(f"Generated value not in arr: {val}")
     '''
-    # To debug use:
+    # To debug w/ pdb use:
     breakpoint()
     result = binary_search_recursive(val, sorted_med_data)
     '''
