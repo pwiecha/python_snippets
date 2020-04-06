@@ -1,1 +1,41 @@
 run pytest from tests/ for pytest.ini to be discovered, otherwise move it up one dir
+
+see markers description:
+pytest --markers
+
+Run all
+pytest test_search_algos.py
+
+Pytest flags
+-v (verbose, more info)
+-s (capture stdout to console)
+-x stop on first failing test
+--pdb start pdb on first failure
+--trace start pdb on first test
+--count=N for tests w/o mark.repeat - repeat all selected tests N times
+
+you can combine flags e.g. into -vs --pdb
+
+Run a set of tests (marker @binary)
+pytest test_search_algos.py -m binary
+
+Run specific test
+pytest test_search_algos.py::test_bsr_short
+
+Run testcases on pattern
+pytest test_search_algos.py -k 'test_bsr_ and not long'
+pytest test_search_algos.py -k 'test_bsr_short or test_bs_short'
+
+To debug a failing test use:
+Binary resursive test example
+Insert before assert to be able to step into the function
+'''
+breakpoint()
+result = binary_search_recursive(val, sorted_med_data)
+assert ...
+'''
+
+pytest-benchmark option
+--benchmark-min-time=SECONDS Minimum time per round in seconds.
+
+A round if a set of runs before making a measurement. Default minimum rounds is 5

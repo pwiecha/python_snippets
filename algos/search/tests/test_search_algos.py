@@ -6,11 +6,11 @@ from ..src.binary_search import binary_search_recursive
 
 @pytest.fixture
 def sorted_short_data():
-    return list(range(-50,51))
+    return list(range(-1000,1001))
 
 @pytest.fixture
 def sorted_med_data():
-    return list(range(-5000,5001))
+    return list(range(-10000,10001))
 
 @pytest.fixture
 def sorted_long_data():
@@ -28,6 +28,20 @@ repeat_med = 20
 repeat_long = 10
 
 ''' linear search testing '''
+
+@pytest.mark.linear
+@pytest.mark.timing
+def test_ls_expected_time(sorted_long_data, benchmark):
+    idx, val, log = rand_idx_val(sorted_long_data)
+    benchmark(linear_search, target=val, sequence=sorted_long_data)
+
+@pytest.mark.linear
+@pytest.mark.timing
+def test_ls_worst_time(sorted_long_data, benchmark):
+    val_above = sorted_long_data[-1] + random.randrange(1, 50)
+    val_below = sorted_long_data[0] - random.randrange(1, 50)
+    val = random.choice([val_above, val_below])
+    benchmark(linear_search, target=val, sequence=sorted_long_data)
 
 @pytest.mark.linear
 @pytest.mark.repeat(repeat_short)
@@ -137,16 +151,39 @@ def test_bsr_not_found(sorted_med_data):
     val = random.choice([val_above, val_below])
 
     print(f"Generated value not in arr: {val}")
-    '''
-    # To debug w/ pdb use:
-    breakpoint()
-    result = binary_search_recursive(val, sorted_med_data)
-    '''
     assert binary_search_recursive(val, sorted_med_data) == -1
 
-@pytest.mark.linear
+@pytest.mark.binary
 @pytest.mark.repeat(repeat_len_one)
 def test_bsr_len_one():
     arr = [random.randrange(1, 50)]
     assert binary_search_recursive(0, arr) == -1
     assert binary_search_recursive(arr[0], arr) == 0
+
+@pytest.mark.binary
+@pytest.mark.timing
+def test_bs_expected_time(sorted_long_data, benchmark):
+    idx, val, log = rand_idx_val(sorted_long_data)
+    benchmark(binary_search, target=val, sequence=sorted_long_data)
+
+@pytest.mark.binary
+@pytest.mark.timing
+def test_bs_worst_time(sorted_long_data, benchmark):
+    val_above = sorted_long_data[-1] + random.randrange(1, 50)
+    val_below = sorted_long_data[0] - random.randrange(1, 50)
+    val = random.choice([val_above, val_below])
+    benchmark(binary_search, target=val, sequence=sorted_long_data)
+
+@pytest.mark.binary
+@pytest.mark.timing
+def test_bsr_expected_time(sorted_long_data, benchmark):
+    idx, val, log = rand_idx_val(sorted_long_data)
+    benchmark(binary_search_recursive, target=val, sequence=sorted_long_data)
+
+@pytest.mark.binary
+@pytest.mark.timing
+def test_bsr_worst_time(sorted_long_data, benchmark):
+    val_above = sorted_long_data[-1] + random.randrange(1, 50)
+    val_below = sorted_long_data[0] - random.randrange(1, 50)
+    val = random.choice([val_above, val_below])
+    benchmark(binary_search_recursive, target=val, sequence=sorted_long_data)
