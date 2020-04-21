@@ -1,0 +1,17 @@
+{
+    "python.pythonPath": "/home/pawel/.local/share/virtualenvs/python_snippets-rFG5ZKRe/bin/python",
+    "python.pipenvPath": "/home/pawel/.pyenv/shims/pipenv",
+    "python.venvPath": "/home/pawel/.local/share/virtualenvs/python_snippets-rFG5ZKRe",
+    "python.linting.pylintEnabled": true,
+    "python.linting.flake8Enabled": true,
+    "python.linting.pep8Enabled": true,
+    "python.linting.flake8Args": ["--max-line-length=100", "--accept-encodings=utf-8,utf-16,ascii", "--ignore=I002"],
+    "python.testing.pytestArgs": [
+        "."
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.nosetestsEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "python.linting.enabled": true,
+    "python.linting.lintOnSave": false
+}

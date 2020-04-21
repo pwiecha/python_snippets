@@ -4,11 +4,12 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-wemake-python-styleguide = "*"
-pytest = "*"
+flake8 = "*"
+pylint = "*"
 mypy = "*"
-
-[packages]
+pytest = "*"
+pytest-xdist = "*"
+pytest-repeat = "*"
 
 [requires]
 python_version = "3.8"

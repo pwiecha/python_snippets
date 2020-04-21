@@ -79,7 +79,7 @@ def test_ls_len_two():
 @pytest.mark.linear
 @pytest.mark.timing
 def test_ls_expected_time(sorted_long_data, benchmark):
-    idx, val, log = rand_idx_val(sorted_long_data)
+    _, val, _ = rand_idx_val(sorted_long_data)
     benchmark(linear_search, target=val, sequence=sorted_long_data)
 
 @pytest.mark.linear
@@ -141,7 +141,7 @@ def test_bs_len_two():
 @pytest.mark.binary
 @pytest.mark.timing
 def test_bs_expected_time(sorted_long_data, benchmark):
-    idx, val, log = rand_idx_val(sorted_long_data)
+    _, val, _ = rand_idx_val(sorted_long_data)
     benchmark(binary_search, target=val, sequence=sorted_long_data)
 
 @pytest.mark.binary
@@ -203,7 +203,7 @@ def test_bsr_len_two():
 @pytest.mark.binary
 @pytest.mark.timing
 def test_bsr_expected_time(sorted_long_data, benchmark):
-    idx, val, log = rand_idx_val(sorted_long_data)
+    _, val, _ = rand_idx_val(sorted_long_data)
     benchmark(binary_search_recursive, target=val, sequence=sorted_long_data)
 
 @pytest.mark.binary
@@ -265,7 +265,7 @@ def test_bsr_two_len_two():
 @pytest.mark.binary
 @pytest.mark.timing
 def test_bsr_two_expected_time(sorted_long_data, benchmark):
-    idx, val, log = rand_idx_val(sorted_long_data)
+    _, val, _ = rand_idx_val(sorted_long_data)
     benchmark(binary_search_recursive_two, target=val, sequence=sorted_long_data)
 
 @pytest.mark.binary
