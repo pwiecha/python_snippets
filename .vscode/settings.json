@@ -4,11 +4,10 @@
     "python.venvPath": "/home/pawel/.local/share/virtualenvs/python_snippets-rFG5ZKRe",
     "python.linting.pylintEnabled": true,
     "python.linting.flake8Enabled": true,
-    "python.linting.pep8Enabled": true,
+    "python.linting.pycodestyleEnabled": true,
     "python.linting.flake8Args": ["--max-line-length=100", "--accept-encodings=utf-8,utf-16,ascii", "--ignore=I002"],
-    "python.testing.pytestArgs": [
-        "."
-    ],
+    "python.linting.pycodestyleArgs": ["--max-line-length=100"],
+    "python.testing.pytestArgs": ["."],
     "python.testing.unittestEnabled": false,
     "python.testing.nosetestsEnabled": false,
     "python.testing.pytestEnabled": true,
