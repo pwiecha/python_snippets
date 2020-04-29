@@ -70,7 +70,6 @@ def test_direct_grow_shrink_array():
     da = DynamicArray()
 
     grow_idxs = [2**i + 1 for i in range(1, 7)]
-    print(grow_idxs)
     for idx in range(1, (2**7)+1):
         prev_capacity = da._capacity
         da.append(idx)
@@ -78,15 +77,13 @@ def test_direct_grow_shrink_array():
         if idx in grow_idxs:
             assert new_capacity == 2 * prev_capacity
 
-    shrink_idxs = [32, 8]
-    print(da._itemcnt)
+    shrink_idxs = [33, 17, 9]
     for idx in range((2**7), -1, -1):
         prev_capacity = da._capacity
         da.pop()
         new_capacity = da._capacity
-        print(idx, prev_capacity, new_capacity)
-        #if idx in shrink_idxs:
-            #assert new_capacity == prev_capacity // 2
+        if idx in shrink_idxs:
+            assert new_capacity == prev_capacity // 2
 
 
 @pytest.mark.repeat(repeat_cnt)
