@@ -5,22 +5,27 @@ from ..src.binary_search import binary_search
 from ..src.binary_search import binary_search_recursive
 from ..src.binary_search import binary_search_recursive_two
 
+
 @pytest.fixture
 def sorted_short_data():
-    return list(range(-1000,1001))
+    return list(range(-1000, 1001))
+
 
 @pytest.fixture
 def sorted_med_data():
-    return list(range(-10000,10001))
+    return list(range(-10000, 10001))
+
 
 @pytest.fixture
 def sorted_long_data():
-    return list(range(int(-1e5),int(1e5)))
+    return list(range(int(-1e5), int(1e5)))
+
 
 def rand_idx_val(sequence):
     ''' Randomly select index and element from sequence '''
     idx = random.choice(range(len(sequence)))
     return idx, sequence[idx], f"Searching for idx: {idx} val: {sequence[idx]}"
+
 
 # Pytest number or repetitions based on test type
 repeat_not_found = 50

@@ -1,7 +1,9 @@
 # -*- coding: ascii -*-
 """Implementation of a dynamic array data structure, sth like python list data structure.
 
-Implemented based on reference implementation from Goldwasser's book."""
+Implemented based on reference implementation from Goldwasser's book.
+"""
+
 import ctypes
 
 
@@ -13,6 +15,9 @@ class DynamicArray():
 
     def __len__(self):
         return self._itemcnt
+
+    def __str__(self):
+        return f"{[item for item in self._array[:self._itemcnt]]}"
 
     def __getitem__(self, idx):
         if not 0 <= idx < self._itemcnt:
@@ -43,7 +48,7 @@ class DynamicArray():
         self._array = new_array
         self._capacity = capacity
 
-    #TODO: add shrink when _itemcnt < _capacity / 4, shrink by 2
+    # TODO: add shrink when _itemcnt < _capacity / 4, shrink by 2
 
     def _make_array(self, capacity):
         return (capacity * ctypes.py_object)()

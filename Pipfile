@@ -10,6 +10,7 @@ mypy = "*"
 pytest = "*"
 pytest-xdist = "*"
 pytest-repeat = "*"
+pytest-benchmark = "*"
 
 [requires]
 python_version = "3.8"
