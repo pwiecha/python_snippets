@@ -1,6 +1,5 @@
 import pytest
 import numpy as np
-import math
 import copy
 from ..src.insertion_sort import insertion_sort
 from ..src.insertion_sort import insertion_sort_better
