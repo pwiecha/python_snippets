@@ -21,15 +21,3 @@ def insertion_sort_better(seq: Sequence[TNum]) -> None:
             seq[j] = seq[j-1] # shift right
             j -= 1
         seq[j] = cur_elem # insert
-
-'''
-if __name__ == "__main__":
-    sequence1=[3,1,5,2]
-    insertion_sort_better(sequence1)
-    print(sequence1, len(sequence1))
-    import random
-    sequence2 = random.sample(range(0, 30), 10)
-    print(sequence2)
-    insertion_sort_better(sequence2)
-    print(sequence2)
-'''
