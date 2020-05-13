@@ -22,9 +22,7 @@ def insertion_sort_better(seq: Sequence[TNum]) -> None:
             j -= 1
         seq[j] = cur_elem # insert
 
-def insertion_sort_recursive(seq: Sequence[TNum]) -> None:
-    pass
-
+'''
 if __name__ == "__main__":
     sequence1=[3,1,5,2]
     insertion_sort_better(sequence1)
@@ -34,3 +32,4 @@ if __name__ == "__main__":
     print(sequence2)
     insertion_sort_better(sequence2)
     print(sequence2)
+'''
