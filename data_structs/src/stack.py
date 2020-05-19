@@ -47,7 +47,7 @@ class ArrayStack():
 
     def pop(self):
         try:
-            self._data.pop()
+            return self._data.pop()
         except IndexError:
             raise ArrayStackEmpty("Trying to pop an empty Stack")
 
