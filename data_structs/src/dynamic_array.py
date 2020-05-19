@@ -36,14 +36,13 @@ class DynamicArray():
 
     def pop(self):
         try:
-            popped = self._array[self._itemcnt-1]
+            popped = self._array[self._itemcnt - 1]
             self._itemcnt -= 1
             if self._capacity > 4 and self._itemcnt == self._capacity // 4:
                 self._resize(self._capacity // 2)
             return popped
         except (IndexError, ValueError) as err:
-            print(err)
-            raise # raise last exception in the current scope
+            raise err  # raise last exception in the current scope
 
     def _resize(self, capacity):
         new_array = self._make_array(capacity)

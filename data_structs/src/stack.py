@@ -40,7 +40,7 @@ class ArrayStack():
     """
 
     def __init__(self):
-        self._data = list()
+        self._data = []
 
     def push(self, item):
         self._data.append(item)
@@ -49,7 +49,7 @@ class ArrayStack():
         try:
             self._data.pop()
         except IndexError:
-            raise ArrayStackEmpty("Trying to pop and empty Stack")
+            raise ArrayStackEmpty("Trying to pop an empty Stack")
 
     def top(self):
         return self._data[-1]
