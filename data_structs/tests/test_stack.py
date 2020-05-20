@@ -1,6 +1,7 @@
 import pytest
 import random
-from data_structs.src.stack import ArrayStack, ArrayStackEmpty
+from data_structs.src.stack import ArrayStack, ArrayStackMaxlen,
+from data_structs.src.stack import ArrayStackEmpty, ArrayStackFull
 
 
 def test_direct():
@@ -12,10 +13,32 @@ def test_direct():
     assert s.top() == 3  # Stack: [5, 3]
     assert s.pop() == 3  # Stack: [5]
     assert s.pop() == 5  # Stack: []
-    assert s.is_empty()
+    assert s.is_empty()  # True
 
     with pytest.raises(ArrayStackEmpty):
         s.pop()
+
+    with pytest.raises(ArrayStackEmpty):
+        s.top()
+
+def test_direct_arr_maxlen():
+    s = ArrayStackMaxlen()
+    smax = ArrayStackMaxlen(10)
+
+    assert len(s) == 0
+    assert 
+
+    for i in range(10):
+        s.push(i)
+        smax.push(i)
+        assert not s.is_full
+        assert not smax.is_full
+    
+    assert not s.is_full
+    assert smax.is_full
+
+    with pytest.raises(ArrayStackFull)
+
 
 
 def test_direct_is_empty():

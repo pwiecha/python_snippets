@@ -6,7 +6,7 @@ Implemented based on reference implementation from Goldwasser's book.
 import ctypes
 
 
-class DynamicArray():
+class DynamicArray(object):
     def __init__(self, capacity=2):
         self._itemcnt = 0
         self._capacity = capacity
