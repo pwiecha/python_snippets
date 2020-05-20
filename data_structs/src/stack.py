@@ -131,16 +131,18 @@ class ArrayStackMaxlen(object):
         self._ecnt += 1
 
     def pop(self):
-        """Remove and return last item on the Stack, decrement element count.
+        """Return last item on the Stack, decrement element count.
+
+        By decreasing the element count item can be overwritten by the next push.
 
         Raises:
             ArrayStackEmpty if there is no item to return.
         """
         try:
-            self._ecnt -= 1
-            return self._data.pop()
+            return self._data[self._ecnt]
         except IndexError:
-            raise ArrayStackEmpty("Trying to pop an empty Stack")
+            raise ArrayStackEmpty("Stack is empty")
+        self._ecnt -= 1
 
     def top(self):
         """Return but not remove last item on the Stack.
@@ -149,7 +151,7 @@ class ArrayStackMaxlen(object):
             ArrayStackEmpty if there is no item to return.
         """
         try:
-            return self._data[-1]
+            return self._data[self._ecnt]
         except IndexError:
             raise ArrayStackEmpty("Stack is empty")
 

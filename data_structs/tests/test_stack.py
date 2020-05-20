@@ -21,6 +21,7 @@ def test_direct():
     with pytest.raises(ArrayStackEmpty):
         s.top()
 
+# TODO
 def test_direct_arr_maxlen():
     s = ArrayStackMaxlen()
     smax = ArrayStackMaxlen(10)
