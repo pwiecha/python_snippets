@@ -1,6 +1,6 @@
 import pytest
 import random
-from data_structs.src.stack import ArrayStack, ArrayStackMaxlen,
+from data_structs.src.stack import ArrayStack, ArrayStackMaxlen
 from data_structs.src.stack import ArrayStackEmpty, ArrayStackFull
 
 
@@ -21,25 +21,29 @@ def test_direct():
     with pytest.raises(ArrayStackEmpty):
         s.top()
 
-# TODO
+
 def test_direct_arr_maxlen():
     s = ArrayStackMaxlen()
     smax = ArrayStackMaxlen(10)
 
     assert len(s) == 0
-    assert 
+    assert len(smax) == 0
+
+    assert s.is_empty()
+    assert smax.is_empty()
 
     for i in range(10):
+        assert not s.is_full()
+        assert not smax.is_full()
         s.push(i)
         smax.push(i)
-        assert not s.is_full
-        assert not smax.is_full
-    
-    assert not s.is_full
-    assert smax.is_full
 
-    with pytest.raises(ArrayStackFull)
+    assert not s.is_full()
+    assert smax.is_full() # maxlen reached
 
+    s.push(0)
+    with pytest.raises(ArrayStackFull):
+        smax.push(0)
 
 
 def test_direct_is_empty():
@@ -50,9 +54,8 @@ def test_direct_is_empty():
     s.pop()
     assert s.is_empty()
 
-
-def test_direct_pop():
-    s = ArrayStack()
+@pytest.mark.parametrize("s", [ArrayStack(), ArrayStackMaxlen(), ArrayStackMaxlen(10)])
+def test_direct_pop(s):
     for i in range(15):
         s.push(i)
         assert s.pop() == i
@@ -60,8 +63,9 @@ def test_direct_pop():
         s.pop()
 
 
-def test_direct_push_top():
-    s = ArrayStack()
+@pytest.mark.parametrize("s", [ArrayStack(), ArrayStackMaxlen(), ArrayStackMaxlen(20)])
+def test_direct_push_top(s):
+    #s = ArrayStack()
     cnt = 1
     for _ in range(20):
         d = random.randrange(100)

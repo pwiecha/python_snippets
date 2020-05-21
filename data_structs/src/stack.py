@@ -117,7 +117,7 @@ class ArrayStackMaxlen(object):
         """Initialize an empty stack implemented as a list object."""
         self._maxlen = maxlen
         self._ecnt = 0  # element count
-        self._data = [] if self._maxlen is not None else self._maxlen * [None]
+        self._data = [] if self._maxlen is None else self._maxlen * [None]
 
     def push(self, e):
         """Add element e on top of the Stack, increment element count.
@@ -126,8 +126,13 @@ class ArrayStackMaxlen(object):
             ArrayStackFull if there is no space left in the Stack for new element.
         """
         if self.is_full():
-            raise ArrayStackFull
-        self._data.append(e)
+            raise ArrayStackFull("Stack is full")
+
+        #  resize is no maxlen specified and list limit reached
+        if self._maxlen is None and self._ecnt == len(self._data):
+            self._data.append(e)
+        else:
+            self._data[self._ecnt] = e
         self._ecnt += 1
 
     def pop(self):
@@ -138,11 +143,11 @@ class ArrayStackMaxlen(object):
         Raises:
             ArrayStackEmpty if there is no item to return.
         """
-        try:
-            return self._data[self._ecnt]
-        except IndexError:
+        if self.is_empty():
             raise ArrayStackEmpty("Stack is empty")
+
         self._ecnt -= 1
+        return self._data[self._ecnt]
 
     def top(self):
         """Return but not remove last item on the Stack.
@@ -150,19 +155,19 @@ class ArrayStackMaxlen(object):
         Raises:
             ArrayStackEmpty if there is no item to return.
         """
-        try:
-            return self._data[self._ecnt]
-        except IndexError:
+        if self.is_empty():
             raise ArrayStackEmpty("Stack is empty")
+
+        return self._data[self._ecnt - 1]
 
     def is_empty(self):
         """Return True is the Stack is empty."""
-        return len(self._data) == 0
+        return self._ecnt == 0
 
     def is_full(self):
         """Return True is the Stack is full."""
-        return self._ecnt == self._maxlen
+        return self._ecnt == self._maxlen if self._maxlen is not None else False
 
     def __len__(self):
         """Return number of elements on the Stack."""
-        return len(self._data)
+        return self._ecnt
