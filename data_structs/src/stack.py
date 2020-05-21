@@ -13,8 +13,7 @@ class ArrayStackEmpty(Exception):
 
 
 class ArrayStackFull(Exception):
-    """Raised when pushing to .full container.
-    """
+    """Raised when pushing to .full container."""
 
 
 class ArrayStack(object):
@@ -115,9 +114,12 @@ class ArrayStackMaxlen(object):
 
     def __init__(self, maxlen=None):
         """Initialize an empty stack implemented as a list object."""
-        self._maxlen = maxlen
         self._ecnt = 0  # element count
-        self._data = [] if self._maxlen is None else self._maxlen * [None]
+        self._maxlen = maxlen
+        if self._maxlen is None:
+            self._data = []
+        else:
+            self._data = self._maxlen * [None]
 
     def push(self, e):
         """Add element e on top of the Stack, increment element count.

@@ -39,20 +39,21 @@ def test_direct_arr_maxlen():
         smax.push(i)
 
     assert not s.is_full()
-    assert smax.is_full() # maxlen reached
+    assert smax.is_full()  # maxlen reached
 
     s.push(0)
     with pytest.raises(ArrayStackFull):
         smax.push(0)
 
 
-def test_direct_is_empty():
-    s = ArrayStack()
+@pytest.mark.parametrize("s", [ArrayStack(), ArrayStackMaxlen(), ArrayStackMaxlen(10)])
+def test_direct_is_empty(s):
     assert s.is_empty()
     s.push(1)
     assert not s.is_empty()
     s.pop()
     assert s.is_empty()
+
 
 @pytest.mark.parametrize("s", [ArrayStack(), ArrayStackMaxlen(), ArrayStackMaxlen(10)])
 def test_direct_pop(s):
@@ -65,7 +66,6 @@ def test_direct_pop(s):
 
 @pytest.mark.parametrize("s", [ArrayStack(), ArrayStackMaxlen(), ArrayStackMaxlen(20)])
 def test_direct_push_top(s):
-    #s = ArrayStack()
     cnt = 1
     for _ in range(20):
         d = random.randrange(100)
