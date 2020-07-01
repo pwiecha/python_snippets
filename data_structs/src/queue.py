@@ -43,9 +43,9 @@ class ArrayQueue(object):
         """
         if self.is_empty():
             raise QueueEmpty("Queue is empty")
-        popval = self._data[self._front] # direct ref to underlying elem
-        self._data[self._front] = None # optional: clear reference from queue, garbage collection 
-        self._front = (self._front + 1) % len(self._data) # circular pointer
+        popval = self._data[self._front]  # direct ref to underlying elem
+        self._data[self._front] = None  # optional: clear reference from queue, garbage collection 
+        self._front = (self._front + 1) % len(self._data)  # circular pointer
         self._size -= 1
         return popval
     
@@ -57,7 +57,7 @@ class ArrayQueue(object):
         """
         if self._size == len(self._data):
             raise QueueFull("Trying to enqueue a full queue.")
-        _back = = (self._front + self._size) % len(self._data) # push pointer
+        _back = (self._front + self._size) % len(self._data) # push pointer
         self._data[_back] = elem
         self._size += 1
 
@@ -77,7 +77,7 @@ class ArrayQueueResize(ArrayQueue):
             self._resize(2 * len(self._data))  # double the array size
         if 0 < self._size < len(self._data) // 4:
             self._resize(len(self._data) // 2)  # shrink by 2
-        _back = = (self._front + self._size) % len(self._data) # push pointer
+        _back = (self._front + self._size) % len(self._data) # push pointer
         self._data[_back] = elem
         self._size += 1
     
@@ -90,5 +90,3 @@ class ArrayQueueResize(ArrayQueue):
             self._data[idx] = old_fifo[old_fifo_idx]
             old_fifo_idx = (old_fifo_idx + 1) % len(old_fifo)
         self._front = 0 # realign to the beggining of the new fifo
-
-
