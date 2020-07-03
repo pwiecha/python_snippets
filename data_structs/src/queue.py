@@ -83,10 +83,10 @@ class ArrayQueueResize(ArrayQueue):
     
     def _resize(self, capacity):
         """ Resize to a new list capacity """
-        old_fifo = self._data
+        old_queue = self._data
         self._data = [None] * capacity
-        old_fifo_idx = self._front
+        old_queue_idx = self._front
         for idx in range(self._size): # copy existing elements
-            self._data[idx] = old_fifo[old_fifo_idx]
-            old_fifo_idx = (old_fifo_idx + 1) % len(old_fifo)
-        self._front = 0 # realign to the beggining of the new fifo
+            self._data[idx] = old_queue[old_queue_idx]
+            old_queue_idx = (old_queue_idx + 1) % len(old_queue)
+        self._front = 0 # realign to the beggining of the resized queue to idx 0
