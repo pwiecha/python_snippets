@@ -26,7 +26,7 @@ class ArrayDeque(object):
         return self._size == 0
 
     def first(self):
-        """ Return w/o remove first element from the deque.
+        """ Return w/o removing first element from the deque.
 
         Raises:
             DequeEmpty if the deque is empty.
@@ -34,6 +34,11 @@ class ArrayDeque(object):
         if self.is_empty():
             raise DequeEmpty("Deque is empty")
         return self._data[self._front]
+
+    def last(self):
+        """ Return w/o removing last element from the deque."""
+        _back = (self._front + self._size - 1) % len(self._data) # last elem ptr
+        return self._data[_back]
 
     def push_front(self, elem):
         """ Add new element to the front of deque.
@@ -83,7 +88,7 @@ class ArrayDeque(object):
             raise DequeEmpty("Deque is empty")
         _back = (self._front + self._size - 1) % len(self._data) # pop pointer
         pop_val = self._data[_back]  # direct ref to underlying elem
-        self._data[self._back] = None  # optional: clear reference from deque, garbage collection
+        self._data[_back] = None  # optional: clear reference from deque, garbage collection
         self._size -= 1
         return pop_val
 
