@@ -1,15 +1,19 @@
 class LinkedObjEmpty(Exception):
     """ Raised when trying to access an empty obj
-    implemented using linked list. """
+    implemented using linked list.
+    """
 
 class LinkedStack(object):
-    """ LIFO Stack using singly linked list."""
+    """ LIFO Stack using singly linked list.
+    All methods (push, pop) have a constant, worst case time O(1).
+    It takes only as much space as its' elements occupies.
+    """
 
     # Nested Node implementation
     class _Node(object):
         """ Node object for building linked lists.
-            Using __slots__: fix number of attributes
-            for faster access and less memory (no __dict__)
+        Using __slots__: fix number of attributes
+        for faster access and less memory (no __dict__)
         """
         __slots__ = '_element', '_next'
 

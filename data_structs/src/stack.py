@@ -21,6 +21,12 @@ class ArrayStack(object):
 
     LIFO (Last In First Out) Stack abstract data structure.
 
+    Pop and push methods have an amortized running time of O(1).
+    A typical call will run in constant time except cases when calling a method
+    requires a resize of the internal list.
+    In such case it will run in O(n) worst case time (n - current number of elements on the stack).
+    Remaining methods have a constant running time of O(1).
+
     Methods:
         push: adds an element to the Stack
         pop: removes top element from the Stack and returns it
@@ -88,6 +94,8 @@ class ArrayStackMaxlen(object):
     LIFO (Last In First Out) Stack abstract data structure.
     This version includes optional maximum capacity option
     and pre-allocates the underlying list to such size.
+    Such implementation will take more space O(maxlen),
+    but push and pop methods will now always run in constant time O(1) (trade-off).
 
     Methods:
         push: adds an element to the Stack
@@ -130,7 +138,7 @@ class ArrayStackMaxlen(object):
         if self.is_full():
             raise ArrayStackFull("Stack is full")
 
-        #  resize is no maxlen specified and list limit reached
+        #  resize if no maxlen specified and list limit reached
         if self._maxlen is None and self._ecnt == len(self._data):
             self._data.append(e)
         else:

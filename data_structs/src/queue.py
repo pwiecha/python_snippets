@@ -48,7 +48,7 @@ class ArrayQueue(object):
         self._front = (self._front + 1) % len(self._data)  # circular pointer
         self._size -= 1
         return popval
-    
+
     def enqueue(self, elem):
         """ Add an element to the back of the queue.
 
