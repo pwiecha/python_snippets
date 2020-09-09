@@ -34,10 +34,10 @@ class LinkedStack(object):
     def is_empty(self):
         return self._size == 0
 
-    def push(self, el):
+    def push(self, element):
         # Create new Node and link it
         # new_head -> new_node(element, previous node)
-        self._head = self._Node(el, self._head)
+        self._head = self._Node(element, self._head)
         self._size += 1
 
     def top(self):
@@ -68,7 +68,7 @@ class LinkedQueue(object):
         """
         __slots__ = '_element', '_next_node'
 
-        def init(self, element, next_node):
+        def __init__(self, element, next_node):
             self._element = element
             self._next_node = next_node
 
@@ -109,10 +109,11 @@ class LinkedQueue(object):
         self._size -= 1
         return retval
 
-    def enqueue(self, elem):
+    def enqueue(self, element):
         """ Add an element to the back of the queue.
         """
-        new = self._Node(elem, None)
+        new = self._Node(element, None)
+        # TODO when queue is empty tail point to None, cannot access next node
         self._tail._next_node = new
         self._size += 1
 

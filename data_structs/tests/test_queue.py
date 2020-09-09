@@ -3,11 +3,13 @@ import random
 import math
 from data_structs.src.queue import ArrayQueue, ArrayQueueResize
 from data_structs.src.queue import QueueFull, QueueEmpty
+from data_structs.src.linked_lists import LinkedQueue
+from data_structs.src.linked_lists import LinkedObjEmpty
 
 repeat_cnt = 50
 
-def test_direct_methods_queue():
-    q = ArrayQueue()
+@pytest.mark.parametrize("q", [ArrayQueue(), ArrayQueueResize(), LinkedQueue()])
+def test_direct_methods_queue(q):
 
     assert len(q) == 0
 
@@ -28,7 +30,7 @@ def test_direct_methods_queue():
     assert q.dequeue() == 3
     assert len(q) == 0
 
-    with pytest.raises(QueueEmpty):
+    with pytest.raises(LinkedObjEmpty if isinstance(q, LinkedQueue) else QueueEmpty):
         q.first()
 
     assert q.is_empty() == True
@@ -54,7 +56,6 @@ def test_array_full():
 
     qr.enqueue(random.randrange(100))
     assert len(qr._data) > len(qr)
-    
 
 def test_array_resize():
     qr = ArrayQueueResize()
@@ -65,3 +66,4 @@ def test_array_resize():
     for idx in range(10):
         qr.enqueue(random.randrange(100))
     assert len(qr._data) == initial_len * 2
+

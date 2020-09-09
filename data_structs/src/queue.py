@@ -8,7 +8,7 @@ class QueueFull(Exception):
 
 class ArrayQueue(object):
     """ FIFO queue implementation usign Python list for storage.
-        Supports resize operation (enlarge and shrink).
+        Fixed queue size.
         Implementation based on Goldwasser book. """
 
     default_capacity = 10 # class attrib
@@ -63,7 +63,7 @@ class ArrayQueue(object):
 
 
 class ArrayQueueResize(ArrayQueue):
-    """ Enhancement to the ArrayQueue
+    """ Enhancement to the ArrayQueue.
     Supports resize operation (enlarge and shrink).
     Implementation based on Goldwasser book. """
 
@@ -73,14 +73,17 @@ class ArrayQueueResize(ArrayQueue):
         Raises:
             QueueFull if the queue is full.
         """
+        # double the array size when limit reached
         if self._size == len(self._data):
-            self._resize(2 * len(self._data))  # double the array size
+            self._resize(2 * len(self._data))
+        # shrink by 2 when below 25% capacity
+        # to avoid possible enlarge - shrink loop
         if 0 < self._size < len(self._data) // 4:
-            self._resize(len(self._data) // 2)  # shrink by 2
+            self._resize(len(self._data) // 2)
         _back = (self._front + self._size) % len(self._data) # push pointer
         self._data[_back] = elem
         self._size += 1
-    
+
     def _resize(self, capacity):
         """ Resize to a new list capacity """
         old_queue = self._data
@@ -90,3 +93,4 @@ class ArrayQueueResize(ArrayQueue):
             self._data[idx] = old_queue[old_queue_idx]
             old_queue_idx = (old_queue_idx + 1) % len(old_queue)
         self._front = 0 # realign to the beggining of the resized queue to idx 0
+
