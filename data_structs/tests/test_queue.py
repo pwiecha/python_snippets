@@ -27,7 +27,7 @@ def test_direct_methods_queue():
 
     assert q.dequeue() == 3
     assert len(q) == 0
-    
+
     with pytest.raises(QueueEmpty):
         q.first()
 
@@ -35,7 +35,7 @@ def test_direct_methods_queue():
 
     with pytest.raises(QueueEmpty):
         q.dequeue()
-    
+
     assert len(q) == 0
 
     q.enqueue(8)
