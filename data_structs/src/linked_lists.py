@@ -107,13 +107,20 @@ class LinkedQueue(object):
         retval = self._head._element  # direct ref to underlying elem
         self._head = self._head._next_node # move pointer to previous node
         self._size -= 1
+        # When emptying the queue, clear _tail reference to the last object
+        if self.is_empty():
+            self._tail = None
         return retval
 
     def enqueue(self, element):
         """ Add an element to the back of the queue.
         """
         new = self._Node(element, None)
-        # TODO when queue is empty tail point to None, cannot access next node
-        self._tail._next_node = new
+        # When enqueueing first element, set both pointers to it
+        if self.is_empty():
+            self._head = new
+            self._tail = new
+        else:
+            self._tail._next_node = new
         self._size += 1
 

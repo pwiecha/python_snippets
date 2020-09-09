@@ -35,13 +35,17 @@ def test_direct_methods_queue(q):
 
     assert q.is_empty() == True
 
-    with pytest.raises(QueueEmpty):
+    with pytest.raises(LinkedObjEmpty if isinstance(q, LinkedQueue) else QueueEmpty):
         q.dequeue()
 
     assert len(q) == 0
 
     q.enqueue(8)
     assert len(q) == 1
+    assert q.first() == 8
+
+    q.enqueue(11)
+    assert len(q) == 2
     assert q.first() == 8
 
 def test_array_full():
