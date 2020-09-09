@@ -2,10 +2,13 @@ import pytest
 import random
 from data_structs.src.stack import ArrayStack, ArrayStackMaxlen
 from data_structs.src.stack import ArrayStackEmpty, ArrayStackFull
+from data_structs.src.linked_lists import LinkedStack
+from data_structs.src.linked_lists import LinkedObjEmpty
 
 
-def test_direct():
-    s = ArrayStack()  # Stack: []
+@pytest.mark.parametrize("s", [ArrayStack(), ArrayStackMaxlen(), ArrayStackMaxlen(10), LinkedStack()])
+def test_direct(s):
+    #s = ArrayStack()  # Stack: []
     assert len(s) == 0
     s.push(5)  # Stack: [5]
     s.push(3)  # Stack: [5, 3]
@@ -15,10 +18,10 @@ def test_direct():
     assert s.pop() == 5  # Stack: []
     assert s.is_empty()  # True
 
-    with pytest.raises(ArrayStackEmpty):
+    with pytest.raises(LinkedObjEmpty if isinstance(s, LinkedStack) else ArrayStackEmpty):
         s.pop()
 
-    with pytest.raises(ArrayStackEmpty):
+    with pytest.raises(LinkedObjEmpty if isinstance(s, LinkedStack) else ArrayStackEmpty):
         s.top()
 
 

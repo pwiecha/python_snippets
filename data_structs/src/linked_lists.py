@@ -16,11 +16,11 @@ class LinkedStack(object):
         Using __slots__: fix number of attributes
         for faster access and less memory (no __dict__)
         """
-        __slots__ = '_element', '_next'
+        __slots__ = '_element', '_next_node'
 
-        def init(self, _element, _next)
-            self._element = _element
-            self._next = _next
+        def __init__(self, element, next_node):
+            self._element = element
+            self._next_node = next_node
 
     # Stack methods
     def __init__(self):
@@ -35,10 +35,9 @@ class LinkedStack(object):
         return self._size == 0
 
     def push(self, el):
-        # Create new Node and link it.
-        # Node next -> current head (previous Node)
-        # Stack head -> new Node
-        self._head = _Node(el, self._head)
+        # Create new Node and link it
+        # new_head -> new_node(element, previous node)
+        self._head = self._Node(el, self._head)
         self._size += 1
 
     def top(self):
@@ -50,7 +49,7 @@ class LinkedStack(object):
         if self.is_empty():
             raise LinkedObjEmpty("LinkedStack is empty!")
         popval = self._head._element
-        self._head = self._head._next # move pointer to previous Node
+        self._head = self._head._next_node # move pointer to previous Node
         self._size -= 1
         return popval
 
@@ -67,11 +66,11 @@ class LinkedQueue(object):
         Using __slots__: fix number of attributes
         for faster access and less memory (no __dict__)
         """
-        __slots__ = '_element', '_next'
+        __slots__ = '_element', '_next_node'
 
-        def init(self, _element, _next)
-            self._element = _element
-            self._next = _next
+        def init(self, element, next_node):
+            self._element = element
+            self._next_node = next_node
 
     # Queue methods
     def __init__(self):
@@ -94,7 +93,7 @@ class LinkedQueue(object):
             LinkedObjEmpty if the queue is empty.
         """
         if self.is_empty():
-            raise LinkedObjectEmpty("LinkedQueue is empty")
+            raise LinkedObjEmpty("LinkedQueue is empty")
         return self._head._element
 
     def dequeue(self):
@@ -106,14 +105,14 @@ class LinkedQueue(object):
         if self.is_empty():
             raise LinkedObjEmpty("LinkedQueue is empty")
         retval = self._head._element  # direct ref to underlying elem
-        self._head = self._head._next # move the pointer
+        self._head = self._head._next_node # move pointer to previous node
         self._size -= 1
         return retval
 
     def enqueue(self, elem):
         """ Add an element to the back of the queue.
         """
-        new = _Node(elem, None)
-        self._tail._next = new
+        new = self._Node(elem, None)
+        self._tail._next_node = new
         self._size += 1
 
