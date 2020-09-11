@@ -43,11 +43,11 @@ class ArrayQueue(object):
         """
         if self.is_empty():
             raise QueueEmpty("Queue is empty")
-        popval = self._data[self._front]  # direct ref to underlying elem
+        deqval = self._data[self._front]  # direct ref to underlying elem
         self._data[self._front] = None  # optional: clear reference from queue, garbage collection 
         self._front = (self._front + 1) % len(self._data)  # circular pointer
         self._size -= 1
-        return popval
+        return deqval
 
     def enqueue(self, elem):
         """ Add an element to the back of the queue.

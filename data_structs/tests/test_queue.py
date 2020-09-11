@@ -3,12 +3,12 @@ import random
 import math
 from data_structs.src.queue import ArrayQueue, ArrayQueueResize
 from data_structs.src.queue import QueueFull, QueueEmpty
-from data_structs.src.linked_lists import LinkedQueue
+from data_structs.src.linked_lists import LinkedQueue, CircularLinkedQueue
 from data_structs.src.linked_lists import LinkedObjEmpty
 
 repeat_cnt = 50
 
-@pytest.mark.parametrize("q", [ArrayQueue(), ArrayQueueResize(), LinkedQueue()])
+@pytest.mark.parametrize("q", [ArrayQueue(), ArrayQueueResize(), LinkedQueue(), CircularLinkedQueue()])
 def test_direct_methods_queue(q):
 
     assert len(q) == 0
@@ -30,12 +30,18 @@ def test_direct_methods_queue(q):
     assert q.dequeue() == 3
     assert len(q) == 0
 
-    with pytest.raises(LinkedObjEmpty if isinstance(q, LinkedQueue) else QueueEmpty):
+    with pytest.raises(
+        LinkedObjEmpty if isinstance(q, (LinkedQueue, CircularLinkedQueue))
+        else QueueEmpty
+    ):
         q.first()
 
     assert q.is_empty() == True
 
-    with pytest.raises(LinkedObjEmpty if isinstance(q, LinkedQueue) else QueueEmpty):
+    with pytest.raises(
+        LinkedObjEmpty if isinstance(q, (LinkedQueue, CircularLinkedQueue))
+        else QueueEmpty
+    ):
         q.dequeue()
 
     assert len(q) == 0
@@ -47,6 +53,21 @@ def test_direct_methods_queue(q):
     q.enqueue(11)
     assert len(q) == 2
     assert q.first() == 8
+
+def test_circular_linked_direct():
+    q = CircularLinkedQueue()
+
+    assert q._tail == None
+    q.enqueue(5)
+    assert q._tail._element == 5
+    assert q._tail._next_node == q._tail
+
+    q.enqueue(10)
+    assert q.first() == 5
+
+    q.rotate()
+
+    assert q.first() == 10
 
 def test_array_full():
     q = ArrayQueue()

@@ -104,13 +104,13 @@ class LinkedQueue(object):
         """
         if self.is_empty():
             raise LinkedObjEmpty("LinkedQueue is empty")
-        retval = self._head._element  # direct ref to underlying elem
+        deqval = self._head._element  # direct ref to underlying elem
         self._head = self._head._next_node # move pointer to previous node
         self._size -= 1
         # When emptying the queue, clear _tail reference to the last object
         if self.is_empty():
             self._tail = None
-        return retval
+        return deqval
 
     def enqueue(self, element):
         """ Add an element to the back of the queue.
@@ -123,4 +123,83 @@ class LinkedQueue(object):
         else:
             self._tail._next_node = new
         self._size += 1
+
+
+class CircularLinkedQueue(object):
+    """ Circular FIFO Queue using singly linked list.
+    Can be used for e.g. round robin schedulers.
+    This implementation uses only tail pointer (end of the queue).
+    Head is always one element ahead of the tail.
+    All methods have a constant running time O(1).
+    Memory usage O(n), where n is current number of elements.
+    """
+
+    # Nested Node implementation
+    class _Node(object):
+        """ Node object for building linked lists.
+        Using __slots__: fix number of attributes
+        for faster access and less memory (no __dict__)
+        """
+        __slots__ = '_element', '_next_node'
+
+        def __init__(self, element, next_node):
+            self._element = element
+            self._next_node = next_node
+
+    # Queue methods
+    def __init__(self):
+        self._tail = None
+        self._size = 0
+
+    def __len__(self):
+        return self._size
+
+    def is_empty(self):
+        return self._size == 0
+
+    def first(self):
+        """ Return w/o remove first element from the queue.
+
+        Raises:
+            LinkedObjEmpty if the queue is empty.
+        """
+        if self.is_empty():
+            raise LinkedObjEmpty("LinkedQueue is empty")
+        head_node = self._tail._next_node
+        return head_node._element
+
+    def dequeue(self):
+        """ Remove and return first element from the queue (FIFO).
+
+        Raises:
+            LinkedObjEmpty if the queue is empty.
+        """
+        if self.is_empty():
+            raise LinkedObjEmpty("LinkedQueue is empty")
+        old_head = self._tail._next_node
+        if self._size == 1:
+            self._tail = None
+        else:
+            self._tail._next_node = old_head._next_node # set new head
+        self._size -= 1
+        return old_head._element
+
+    def enqueue(self, element):
+        """ Add an element to the back of the queue, move the tail pointer to it.
+        """
+        new_node = self._Node(element, None)
+        # When enqueueing first element
+        if self.is_empty():
+            new_node._next_node = new_node # create circularity
+        # Otherwise link new element and move the tail to it
+        else:
+            head = self._tail._next_node
+            new_node._next_node = head
+            self._tail._next_node = new_node
+        self._tail = new_node
+        self._size += 1
+
+    def rotate(self):
+        if not self.is_empty():
+            self._tail = self._tail._next_node
 
