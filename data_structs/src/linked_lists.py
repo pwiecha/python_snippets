@@ -204,8 +204,8 @@ class CircularLinkedQueue(object):
             self._tail = self._tail._next_node
 
 
-class _DoublyLinkedList(object):
-    """ Class to be derived from - basic functionality of DLL """
+class _DoublyLinkedListBase(object):
+    """ Class to be derived from - implements basic functionality of DLL """
 
     class _Node(object):
         __slots__ = "_prev_node", "_element", "_next_node"
@@ -229,7 +229,7 @@ class _DoublyLinkedList(object):
     def is_empty(self):
         return self._size == 0
 
-    def _insert_element(self, element, prev_n, next_n):
+    def _insert_element(self, prev_n, element, next_n):
         """ Add element between already existing ones and return new node """
         new_n = self._Node(prev_n, element, next_n)
         prev_n._next_node = new_n
@@ -250,5 +250,35 @@ class _DoublyLinkedList(object):
         node._next_node = node._prev_node = node._element = None
         return element
 
+class LinkedDeque(_DoublyLinkedListBase):
+    """ Deque implementation using LL Base class.
+        Head/tail are elements after first / last element (sentinels).
+        init, len and is_empty methods are derived from base class.
+    """
 
+    def first(self):
+        if self.is_empty():
+            raise LinkedObjEmpty("LinkedDeque is empty!")
+        return self._head._prev_node._element
+
+    def last(self):
+        if self.is_empty():
+            raise LinkedObjEmpty("LinkedDeque is empty!")
+        return self._tail._next_node._element
+
+    def insert_first(self, element):
+        self._insert_element(self._head._prev_node, element, self._head)
+
+    def insert_last(self, element):
+        self._insert_element(self._tail, element, self._tail._next_node)
+
+    def delete_first(self):
+        if self.is_empty():
+            raise LinkedObjEmpty("LinkedDeque is empty!")
+        self._delete_node(self._head._prev_node)
+
+    def delete_last(self):
+        if self.is_empty():
+            raise LinkedObjEmpty("LinkedDeque is empty!")
+        self._delete_node(self._tail._next_node)
 
