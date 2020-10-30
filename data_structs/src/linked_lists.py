@@ -203,3 +203,52 @@ class CircularLinkedQueue(object):
         if not self.is_empty():
             self._tail = self._tail._next_node
 
+
+class _DoublyLinkedList(object):
+    """ Class to be derived from - basic functionality of DLL """
+
+    class _Node(object):
+        __slots__ = "_prev_node", "_element", "_next_node"
+
+        def __init__(self, prev_node, element, next_node):
+            self._prev_node = prev_node
+            self._element = element
+            self._next_node = next_node
+
+    def __init__(self):
+        """ Initialize empty list with head and tail sentinels pointing to each other """
+        self._tail = self._Node(None, None, None)
+        self._head = self._Node(None, None, None)
+        self._tail._next_node = self._head
+        self._head._prev_node = self._tail
+        self._size = 0
+
+    def __len__(self):
+        return self._size
+
+    def is_empty(self):
+        return self._size == 0
+
+    def _insert_element(self, element, prev_n, next_n):
+        """ Add element between already existing ones and return new node """
+        new_n = self._Node(prev_n, element, next_n)
+        prev_n._next_node = new_n
+        next_n._prev_node = new_n
+        self._size += 1
+        return new_n
+
+    def _delete_node(self, node):
+        """ Delete node from the list and return its element """
+        prev_n = node._prev_node
+        next_n = node._next_node
+
+        prev_n._next_node = next_n
+        next_n._prev_node = prev_n
+        self._size -= 1
+        # Optional - clear reference to the deleted node
+        element = node._element
+        node._next_node = node._prev_node = node._element = None
+        return element
+
+
+
