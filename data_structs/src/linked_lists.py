@@ -266,19 +266,19 @@ class LinkedDeque(_DoublyLinkedListBase):
             raise LinkedObjEmpty("LinkedDeque is empty!")
         return self._tail._next_node._element
 
-    def insert_first(self, element):
+    def push_front(self, element):
         self._insert_element(self._head._prev_node, element, self._head)
 
-    def insert_last(self, element):
+    def push_back(self, element):
         self._insert_element(self._tail, element, self._tail._next_node)
 
-    def delete_first(self):
+    def pop_front(self):
         if self.is_empty():
             raise LinkedObjEmpty("LinkedDeque is empty!")
-        self._delete_node(self._head._prev_node)
+        return self._delete_node(self._head._prev_node)
 
-    def delete_last(self):
+    def pop_back(self):
         if self.is_empty():
             raise LinkedObjEmpty("LinkedDeque is empty!")
-        self._delete_node(self._tail._next_node)
+        return self._delete_node(self._tail._next_node)
 
